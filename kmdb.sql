@@ -134,63 +134,81 @@
 DROP TABLE IF EXISTS movies;
 DROP TABLE IF EXISTS actor;
 DROP TABLE IF EXISTS role;
-
+DROP TABLE IF EXISTS production;
 
 CREATE TABLE movies (
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 name TEXT,
 year TEXT,
 rating TEXT,
-production_company TEXT,
+production_ID INTEGER
 );
 
 CREATE TABLE actor (
 id INTEGER PRIMARY KEY AUTOINCREMENT,
-role_ID INTEGER,
 actor_first_name TEXT,
 actor_last_name TEXT 
 );
 
 CREATE TABLE role (
 id INTEGER PRIMARY KEY AUTOINCREMENT,
-movies_ID INTEGER,
 actor_ID INTEGER,
 role_first_name TEXT,
 role_last_name TEXT
 );
 
-INSERT INTO movies (name, year, rating, production_company)
-VALUES ("Batman Begins", "2005","PG-13","Warner Bros.");
+CREATE TABLE production (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+company_name TEXT    
+);
 
-INSERT INTO movies (name, year, rating, production_company)
-VALUES ("The Dark Knight", "2008","PG-13","Warner Bros.");
+INSERT INTO production (company_name)
+VALUES(
+"Warner Bros.");
 
-INSERT INTO movies (name, year, rating, production_company)
-VALUES ("The Dark Knight Rises", "2012","PG-13","Warner Bros.");
+INSERT INTO movies (name, year, rating, production_ID)
+VALUES 
+("Batman Begins", "2005","PG-13", 1),
+("The Dark Knight", "2008","PG-13", 1),
+("The Dark Knight Rises", "2012","PG-13", 1);
 
-INSERT INTO role (role_first_name, role_last_name)
-VALUES ("Bruce","Wayne");
+INSERT INTO role (actor_ID, role_first_name, role_last_name)
+VALUES
+(1,"Bruce","Wayne"),
+(2, "Alfred",""),
+(3, "Ra's","Al Ghul"),
+(4, "Rachel","Dawes"),
+(11, "Rachel","Dawes"),
+(5, "Commissioner","Gordon"),
+(6, "Joker",""),
+(7, "Harvey","Dent"),
+(8, "Bane",""),
+(9, "John","Blake"),
+(10, "Selina","Kyle");
 
-INSERT INTO role (role_first_name, role_last_name)
-VALUES ("Alfred","");
-
-INSERT INTO role (role_first_name, role_last_name)
-VALUES ("Ra's","Al Ghul");
-
-INSERT INTO role (role_first_name, role_last_name)
-VALUES ("Rachel","Dawes");
-
-INSERT INTO role (role_first_name, role_last_name)
-VALUES ("C","Dawes");
+INSERT INTO actor (actor_first_name, actor_last_name)
+VALUES 
+("Christian", "Bale"),
+("Michael", "Caine"),
+("Liam", "Neeson"),
+("Katie", "Holmes"),
+("Gary", "Oldman"),
+("Heath", "Ledger"),
+( "Aaron", "Eckhart"),
+("Tom", "Hardy"),
+("Joseph", "Gordon-Levitt"),
+("Anne", "Hathaway"),
+("Maggie", "Gyllenhaal");
 
 .print "Movies"
 .print "======"
 .print ""
 
-SELECT name, year, rating, production_company
-FROM movies;
+select role_first_name, role_last_name, actor_first_name, actor_last_name, movies.name
+FROM role
+JOIN actor ON role.actor_ID = actor.ID
+JOIN movies;
 
-SELECT *
-FROM role;
-
-
+--select movies.name, movies.year, movies.rating, production.company_name
+--FROM movies
+--JOIN production ON production.ID = movies.production_ID;

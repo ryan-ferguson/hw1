@@ -114,9 +114,9 @@
 -- TODO!
 
 -- Prints a header for the movies output
-.print "Movies"
-.print "======"
-.print ""
+-- .print "Movies"
+-- .print "======"
+-- .print ""
 
 -- The SQL statement for the movies output
 -- TODO!
@@ -130,3 +130,67 @@
 
 -- The SQL statement for the cast output
 -- TODO!
+
+DROP TABLE IF EXISTS movies;
+DROP TABLE IF EXISTS actor;
+DROP TABLE IF EXISTS role;
+
+
+CREATE TABLE movies (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+name TEXT,
+year TEXT,
+rating TEXT,
+production_company TEXT,
+);
+
+CREATE TABLE actor (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+role_ID INTEGER,
+actor_first_name TEXT,
+actor_last_name TEXT 
+);
+
+CREATE TABLE role (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+movies_ID INTEGER,
+actor_ID INTEGER,
+role_first_name TEXT,
+role_last_name TEXT
+);
+
+INSERT INTO movies (name, year, rating, production_company)
+VALUES ("Batman Begins", "2005","PG-13","Warner Bros.");
+
+INSERT INTO movies (name, year, rating, production_company)
+VALUES ("The Dark Knight", "2008","PG-13","Warner Bros.");
+
+INSERT INTO movies (name, year, rating, production_company)
+VALUES ("The Dark Knight Rises", "2012","PG-13","Warner Bros.");
+
+INSERT INTO role (role_first_name, role_last_name)
+VALUES ("Bruce","Wayne");
+
+INSERT INTO role (role_first_name, role_last_name)
+VALUES ("Alfred","");
+
+INSERT INTO role (role_first_name, role_last_name)
+VALUES ("Ra's","Al Ghul");
+
+INSERT INTO role (role_first_name, role_last_name)
+VALUES ("Rachel","Dawes");
+
+INSERT INTO role (role_first_name, role_last_name)
+VALUES ("C","Dawes");
+
+.print "Movies"
+.print "======"
+.print ""
+
+SELECT name, year, rating, production_company
+FROM movies;
+
+SELECT *
+FROM role;
+
+

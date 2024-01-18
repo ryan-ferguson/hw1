@@ -147,12 +147,14 @@ production_ID INTEGER
 CREATE TABLE actor (
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 actor_first_name TEXT,
-actor_last_name TEXT 
+actor_last_name TEXT,
+movies_ID INTEGER,
+revenue TEXT,
+role_ID INTEGER
 );
 
 CREATE TABLE role (
 id INTEGER PRIMARY KEY AUTOINCREMENT,
-actor_ID INTEGER,
 role_first_name TEXT,
 role_last_name TEXT
 );
@@ -172,42 +174,46 @@ VALUES
 ("The Dark Knight", "2008","PG-13", 1),
 ("The Dark Knight Rises", "2012","PG-13", 1);
 
-INSERT INTO role (actor_ID, role_first_name, role_last_name)
+INSERT INTO role (role_first_name, role_last_name)
 VALUES
-(1,"Bruce","Wayne"),
-(2, "Alfred",""),
-(3, "Ra's","Al Ghul"),
-(4, "Rachel","Dawes"),
-(11, "Rachel","Dawes"),
-(5, "Commissioner","Gordon"),
-(6, "Joker",""),
-(7, "Harvey","Dent"),
-(8, "Bane",""),
-(9, "John","Blake"),
-(10, "Selina","Kyle");
+("Bruce","Wayne"),
+("Alfred",""),
+("Ra's","Al Ghul"),
+("Rachel","Dawes"),
+("Commissioner","Gordon"),
+("Joker",""),
+("Harvey","Dent"),
+("Bane",""),
+("John","Blake"),
+("Selina","Kyle");
 
-INSERT INTO actor (actor_first_name, actor_last_name)
+INSERT INTO actor (actor_first_name, actor_last_name, movies_ID, revenue, role_ID)
 VALUES 
-("Christian", "Bale"),
-("Michael", "Caine"),
-("Liam", "Neeson"),
-("Katie", "Holmes"),
-("Gary", "Oldman"),
-("Heath", "Ledger"),
-( "Aaron", "Eckhart"),
-("Tom", "Hardy"),
-("Joseph", "Gordon-Levitt"),
-("Anne", "Hathaway"),
-("Maggie", "Gyllenhaal");
+("Christian", "Bale", 1, "5", 1),
+("Christian", "Bale", 2, "5", 1),
+("Christian", "Bale", 3, "5", 1),
+("Michael", "Caine", 1, "4", 2),
+("Michael", "Caine", 2, "2", 2),
+("Liam", "Neeson", 1, "3", 3),
+("Katie", "Holmes", 1, "2", 4),
+("Gary", "Oldman", 1, "1", 5),
+("Gary", "Oldman", 3, "4", 5),
+("Heath", "Ledger", 2, "4", 6),
+( "Aaron", "Eckhart", 2, "3", 7),
+("Tom", "Hardy", 3, "3", 8),
+("Joseph", "Gordon-Levitt", 3, "2", 9),
+("Anne", "Hathaway", 3, "1", 10),
+("Maggie", "Gyllenhaal", 2, "1", 4);
 
 .print "Movies"
 .print "======"
 .print ""
 
-select role_first_name, role_last_name, actor_first_name, actor_last_name, movies.name
-FROM role
-JOIN actor ON role.actor_ID = actor.ID
-JOIN movies;
+select actor_first_name, actor_last_name, role_first_name, role_last_name, movies.name
+FROM actor
+JOIN role ON actor.role_ID = role.ID
+JOIN movies ON movies.ID = actor.movies_ID
+ORDER BY movies.name, actor.revenue desc;
 
 --select movies.name, movies.year, movies.rating, production.company_name
 --FROM movies

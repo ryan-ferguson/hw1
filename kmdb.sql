@@ -122,10 +122,10 @@
 -- TODO!
 
 -- Prints a header for the cast output
-.print ""
-.print "Top Cast"
-.print "========"
-.print ""
+--.print ""
+--.print "Top Cast"
+--.print "========"
+--.print ""
 
 
 -- The SQL statement for the cast output
@@ -209,12 +209,18 @@ VALUES
 .print "======"
 .print ""
 
-select actor_first_name, actor_last_name, role_first_name, role_last_name, movies.name
+select movies.name, movies.year, movies.rating, production.company_name
+FROM movies
+JOIN production ON production.ID = movies.production_ID;
+
+.print ""
+.print "Top Cast"
+.print "========"
+.print ""
+
+select movies.name, actor_first_name, actor_last_name, role_first_name, role_last_name
 FROM actor
 JOIN role ON actor.role_ID = role.ID
 JOIN movies ON movies.ID = actor.movies_ID
 ORDER BY movies.name, actor.revenue desc;
 
---select movies.name, movies.year, movies.rating, production.company_name
---FROM movies
---JOIN production ON production.ID = movies.production_ID;

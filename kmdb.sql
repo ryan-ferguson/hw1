@@ -211,7 +211,8 @@ VALUES
 
 select movies.name, movies.year, movies.rating, production.company_name
 FROM movies
-JOIN production ON production.ID = movies.production_ID;
+JOIN production ON production.ID = movies.production_ID
+ORDER BY movies.name;
 
 .print ""
 .print "Top Cast"
